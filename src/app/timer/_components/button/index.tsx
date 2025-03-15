@@ -23,10 +23,9 @@ export default function ButtonTimerPlayer({ timer, setTimer, setStatus, status, 
     const handleClick = () => {
         console.log("status", status);
         const newStatus = {
-            player1:id!=="player1",
-            player2:id!=="player2"
-        }
-        // Atualiza o status do player correspondente corretamente
+            player1: id !== "player1",
+            player2: id !== "player2"
+        };
         setStatus(newStatus);
     };
 
@@ -63,10 +62,17 @@ export default function ButtonTimerPlayer({ timer, setTimer, setStatus, status, 
         return () => clearInterval(interval); // Cleanup do intervalo ao desmontar ou alterar o status
     }, [status, id, setTimer, setStatus]);
 
+    const color={
+        ability:timer.sec>=10?"bg-green-500 border-9 border-green-600":"bg-red-500 border-6 border-red-600",
+        disability:timer.sec>=10?"bg-green-200":"bg-red-200"
+    }
     return (
         <button
-            onClick={handleClick}  
-            className="w-full h-[30%] px-6 text-6xl py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg active:shadow-sm active:scale-95 transition-all duration-200"
+            onClick={handleClick}
+            disabled={(status.player1 || status.player2) && !status[id]}  
+            className={`w-full h-[30%] px-6 text-6xl py-3 ${
+                status[id]? color.ability : color.disability
+            } text-white font-semibold rounded-2xl shadow-md hover:shadow-lg active:shadow-sm active:scale-95 transition-all duration-200`}
         >
             {`${timer.min.toString().padStart(2, "0")}:${timer.sec.toString().padStart(2, "0")}:${Math.floor(timer.mil / 10).toString().padStart(2, "0")}`}
         </button>

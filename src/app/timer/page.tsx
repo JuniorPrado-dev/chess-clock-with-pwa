@@ -4,9 +4,9 @@ import ButtonTimerPlayer from "./_components/button";
 
 export default function Timer() {
   const startTimer: TypeTimer = {
-    min: 10,
-    sec: 10,
-    mil: 10,
+    min: 0,
+    sec: 20,
+    mil: 0,
   };
 
   const [timerPlayer1, setTimerPlayer1] = useState<TypeTimer>(startTimer);
